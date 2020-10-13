@@ -1,31 +1,30 @@
 import Paddle from './paddle.js';
 import InputHandler from './input.js';
+import Ball from './ball.js';
 
-let canvas = document.getElementById("gameScreen");
-let ctx = canvas.getContext('2d');  // 2d context
+export default class Game {
+    constructor(gameWidth, gameHeight) {
+        this.gameWidth = gameWidth;
+        this.gameHeight = gameHeight;
+    }
 
-const GAME_WIDTH = 800;
-const GAME_HEIGHT = 600;
+    start() {
+        this.paddle = new Paddle(this);
+        this.ball = new Ball(this);
+    
+        this.gameObjects = [
+            this.ball,
+            this.paddle
+        ]
 
-ctx.clearRect(0, 0, 800, 600);  // clears the whole screen (800x600)
- 
-let paddle = new Paddle(GAME_WIDTH, GAME_HEIGHT);
+        new InputHandler(this.paddle);
+    }
 
-new InputHandler(paddle);
+    update(deltaTime) {
+        this.gameObjects.forEach((object) => object.update(deltaTime));
+    }
 
-paddle.draw(ctx);
-
-let lastTime = 0;
-
-function gameLoop(timestamp) {
-    let deltaTime = timestamp - lastTime;
-    lastTime = timestamp;
-
-    ctx.clearRect(0, 0, 800, 600);
-    paddle.update(deltaTime);
-    paddle.draw(ctx);
-
-    requestAnimationFrame(gameLoop);
+    draw(ctx) {
+        this.gameObjects.forEach((object) => object.draw(ctx));
+    }
 }
-
-requestAnimationFrame(gameLoop);
