@@ -13,7 +13,7 @@ export default class Boy {
         this.cycleLoop = [0, 1, 2, 3];
         this.currentLoopIndex = 0;
 
-        this.frameLimit = 12;
+        this.frameLimit = 10;
         this.frameCount = 0;
 
         this.currentDirection = 0;
@@ -40,19 +40,26 @@ export default class Boy {
     }
 
     update(deltaTime) {
+        // If the boy is moving, increment loop index based on frameCount
         if (this.hasMoved) {
             this.frameCount++;
             if (this.frameCount >= this.frameLimit) {
                 this.frameCount = 0;
                 this.currentLoopIndex++;
-                if (this.currentLoopIndex >= this.cycleLoop.lenght) {
+                if (this.currentLoopIndex >= this.cycleLoop.length) {
                     this.currentLoopIndex = 0;
                 }
             }
         }
 
+        // If the boy is not moving, set loop index to idle sprite
         if (!this.hasMoved) {
-            this.currentLoopIndex = 0;
+            if (this.currentDirection == 0) {
+                this.currentLoopIndex = 3;
+            }
+            else {
+                this.currentLoopIndex = 0;
+            }
         }
 
         this.position.x += this.speedX;
@@ -67,8 +74,8 @@ export default class Boy {
         if (this.position.y < 0) {
             this.position.y = 0;
         }
-        if (this.position.y + this.spriteHeight > this.gameHeight) {
-            this.position.y = this.gameHeight - this.spritHeight;
+        if (this.position.y + this.height > this.gameHeight) {
+            this.position.y = this.gameHeight - this.height;
         }
     }
 

@@ -1,6 +1,7 @@
 export default class InputHandler {
     constructor(boy) {
         document.addEventListener("keydown", (event) => {
+            // boy.frameCount = 9;
             boy.hasMoved = true;
 
             switch(event.key) {
@@ -33,7 +34,7 @@ export default class InputHandler {
                     break;
 
                 case "ArrowRight":
-                    if (boy.speecX > 0) boy.speedX = 0;
+                    if (boy.speedX > 0) boy.speedX = 0;
                     break;
 
                 case "ArrowUp":
