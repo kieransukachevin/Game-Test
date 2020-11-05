@@ -1,12 +1,15 @@
 export default class Boy {
-    constructor(gameWidth, gameHeight) {
+    constructor(game) {
         this.image = document.getElementById("img_boy");
 
-        this.gameWidth = gameWidth;
-        this.gameHeight = gameHeight;
+        this.show = true;
+
+        this.gameWidth = game.gameWidth;
+        this.gameHeight = game.gameHeight;
 
         this.width = this.image.width;
         this.height = this.image.height;
+
         this.spriteWidth = this.width / 4;
         this.spriteHeight = this.height / 2;
 
@@ -21,8 +24,8 @@ export default class Boy {
 
         this.speedX = 0;
         this.speedY = 0;
-        this.maxSpeed = 10;
-        this.position = {x: 0, y: 0}
+        this.maxSpeed = 9;
+        this.position = {x: 500, y: 500}
     }
 
     draw(ctx) {
@@ -65,6 +68,7 @@ export default class Boy {
         this.position.x += this.speedX;
         this.position.y += this.speedY;
 
+        // Check collision with borders of the canvas
         if (this.position.x < 0) {
             this.position.x = 0;
         }
@@ -74,9 +78,28 @@ export default class Boy {
         if (this.position.y < 0) {
             this.position.y = 0;
         }
-        if (this.position.y + this.height > this.gameHeight) {
-            this.position.y = this.gameHeight - this.height;
+        if (this.position.y + this.spriteHeight > this.gameHeight) {
+            this.position.y = this.gameHeight - this.spriteHeight;
         }
+    }
+
+    // NEEDS WORK TO SET COLLISION
+    collision(setting) {
+        setting.collisions.forEach(collision => {
+            if ((this.position.x + this.spriteWidth > collision[0] && this.position.x < (collision[0] + collision[2]))) {
+                if ((this.position.y + this.spriteHeight > collision[1] && (this.position.y + this.spriteHeight - 30) < (collision[1] + collision[3]))) {
+
+                    // let d1 = 
+                    // let d2 = 
+                    // let d3 = 
+                    // let d4 = 
+                    
+                    this.speedX = 0;
+                    this.speedY = 0;
+
+                }
+            }
+        });
     }
 
     moveLeft() {

@@ -1,0 +1,36 @@
+#gameScreen {
+  border: 1px solid black;
+  position: fixed;
+  top: 5%;
+  left: 5%;
+}
+
+img {
+    display: none;
+}
+
+/* :root {
+    --pixel-size: 4;
+}
+
+.sprite {
+    width: calc(128px * var(--pixel-size));
+    height: calc(128px * var(--pixel-size));
+    background-position-y: calc( var(--pixel-size) * -64 );
+    animation: walkAnimation 0.8s steps(4) infinite; 
+
+    image-rendering: pixelated;
+}
+
+/* .character[walking="true"] .character_spritesheet {
+    animation: walkAnimation 0.6s steps(4) infinite; 
+ } */
+ 
+ /* @keyframes walkAnimation {
+   from {
+     transform: translate3d(0%,0%,0);
+   }
+   to {
+     transform: translate3d(-100%,0%,0);
+   }
+ } */
